@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 use Kirby\Cms\App as Kirby;
-use Rllngr\KirbyScss\ScssCompiler;
+use Rllngr\SCSSizer\ScssCompiler;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 
-Kirby::plugin('rllngr/scss', [
+Kirby::plugin('rllngr/kirby-scssizerizer', [
 
     /**
      * Default option values.
@@ -15,7 +15,7 @@ Kirby::plugin('rllngr/scss', [
      * Override any of these in your project's config.php:
      *
      *   return [
-     *       'rllngr.scss' => [
+     *       'rllngr.kirby-scssizer' => [
      *           'files' => [
      *               'assets/scss/main.scss' => 'assets/css/main.css',
      *           ],
@@ -27,7 +27,7 @@ Kirby::plugin('rllngr/scss', [
         'files' => [],
 
         // Template-based mode: compiles {scssDir}/{template}.scss → {cssDir}/{template}.css
-        // on demand when $page->cssTag() or snippet('rllngr/scss') is called.
+        // on demand when $page->cssTag() or snippet('rllngr/kirby-scssizer') is called.
         'templates' => [
             'scssDir' => 'assets/scss',
             'cssDir'  => 'assets/css',
@@ -55,12 +55,12 @@ Kirby::plugin('rllngr/scss', [
      * Built-in snippet registered under the plugin namespace.
      * Call it from any template or layout — no physical file required in your project:
      *
-     *   <?php snippet('rllngr/scss') ?>
+     *   <?php snippet('rllngr/kirby-scssizer') ?>
      *
      * The snippet compiles the page's SCSS if needed and outputs the <link> tag.
      */
     'snippets' => [
-        'rllngr/scss' => __DIR__ . '/snippets/css-tag.php',
+        'rllngr/kirby-scssizer' => __DIR__ . '/snippets/css-tag.php',
     ],
 
     // -------------------------------------------------------------------------

@@ -4,9 +4,9 @@
  * Triggers compilation if the source SCSS is newer than the output.
  *
  * Usage (from any template or snippet):
- *   <?php snippet('rllngr/scss') ?>
+ *   <?php snippet('rllngr/kirby-scssizer') ?>
  */
 
-use Rllngr\KirbyScss\ScssCompiler;
+use Rllngr\SCSSizer\ScssCompiler;
 
 echo ScssCompiler::cssTag($page);

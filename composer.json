@@ -1,5 +1,5 @@
 {
-    "name": "rllngr/kirby-scss",
+    "name": "rllngr/kirby-scssizer",
     "description": "SCSS compiler plugin for Kirby CMS, powered by scssphp",
     "keywords": ["kirby", "kirby-plugin", "scss", "sass", "css", "compiler"],
     "type": "kirby-plugin",
@@ -17,11 +17,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Rllngr\\KirbyScss\\": "classes/"
+            "Rllngr\\SCSSizer\\": "classes/"
         }
     },
     "extra": {
-        "kirby-plugin-name": "kirby-scss"
+        "kirby-plugin-name": "scssizer"
     },
     "config": {
         "sort-packages": true

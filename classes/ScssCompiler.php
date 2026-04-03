@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rllngr\KirbyScss;
+namespace Rllngr\SCSSizer;
 
 use Kirby\Cms\App as Kirby;
 use Kirby\Cms\Page;
@@ -19,7 +19,7 @@ class ScssCompiler
     public static function compileAll(): void
     {
         $kirby = Kirby::instance();
-        $files = $kirby->option('rllngr.scss.files', []);
+        $files = $kirby->option('rllngr.kirby-scssizer.files', []);
 
         if (empty($files)) {
             return;
@@ -47,7 +47,7 @@ class ScssCompiler
             return false;
         }
 
-        $autoCompile = $kirby->option('rllngr.scss.autoCompile') ?? $kirby->option('debug', false);
+        $autoCompile = $kirby->option('rllngr.kirby-scssizer.autoCompile') ?? $kirby->option('debug', false);
 
         // In non-auto mode, only compile if the output file does not yet exist
         if (!$autoCompile && file_exists($outputAbsolute)) {
@@ -83,7 +83,7 @@ class ScssCompiler
     public static function cssTag(Page $page): string
     {
         $kirby    = Kirby::instance();
-        $config   = $kirby->option('rllngr.scss.templates', []);
+        $config   = $kirby->option('rllngr.kirby-scssizer.templates', []);
         $scssDir  = $config['scssDir'] ?? 'assets/scss';
         $cssDir   = $config['cssDir']  ?? 'assets/css';
         $default  = $config['default'] ?? 'default';
@@ -115,7 +115,7 @@ class ScssCompiler
         $compiler = new Compiler();
 
         // Output style: honour explicit config, otherwise follow Kirby debug flag
-        $outputStyle = $kirby->option('rllngr.scss.outputStyle') ?? match ($kirby->option('debug', false)) {
+        $outputStyle = $kirby->option('rllngr.kirby-scssizer.outputStyle') ?? match ($kirby->option('debug', false)) {
             true  => OutputStyle::EXPANDED,
             false => OutputStyle::COMPRESSED,
         };
@@ -124,12 +124,12 @@ class ScssCompiler
         // Import paths: source directory first, then any user-supplied extras
         $importPaths = [
             dirname($sourceAbsolute),
-            ...$kirby->option('rllngr.scss.importPaths', []),
+            ...$kirby->option('rllngr.kirby-scssizer.importPaths', []),
         ];
         $compiler->setImportPaths($importPaths);
 
         // Inject SCSS variables from config
-        $variables = $kirby->option('rllngr.scss.variables', []);
+        $variables = $kirby->option('rllngr.kirby-scssizer.variables', []);
         if (!empty($variables)) {
             $compiler->replaceVariables($variables);
         }
