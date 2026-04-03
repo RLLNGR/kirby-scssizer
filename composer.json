@@ -1,0 +1,29 @@
+{
+    "name": "rllngr/kirby-scss",
+    "description": "SCSS compiler plugin for Kirby CMS, powered by scssphp",
+    "keywords": ["kirby", "kirby-plugin", "scss", "sass", "css", "compiler"],
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "rllngr",
+            "homepage": "https://github.com/rllngr"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "getkirby/composer-installer": "^1.2",
+        "scssphp/scssphp": "^1.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rllngr\\KirbyScss\\": "classes/"
+        }
+    },
+    "extra": {
+        "kirby-plugin-name": "kirby-scss"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
