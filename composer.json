@@ -1,18 +1,25 @@
 {
     "name": "rllngr/kirby-scssizer",
-    "description": "SCSS compiler plugin for Kirby CMS, powered by scssphp",
+    "description": "Kirby plugin — SCSS compiler powered by scssphp, no Node.js or Ruby required",
     "keywords": ["kirby", "kirby-plugin", "scss", "sass", "css", "compiler"],
     "type": "kirby-plugin",
     "license": "MIT",
+    "homepage": "https://github.com/RLLNGR/kirby-scssizer",
     "authors": [
         {
-            "name": "rllngr",
-            "homepage": "https://github.com/rllngr"
+            "name": "Nicolas Rollinger",
+            "email": "contact@rollinger.design",
+            "homepage": "https://rollinger.design",
+            "role": "Developer"
         }
     ],
+    "support": {
+        "source": "https://github.com/RLLNGR/kirby-scssizer",
+        "issues": "https://github.com/RLLNGR/kirby-scssizer/issues"
+    },
     "require": {
         "php": ">=8.1",
-        "getkirby/composer-installer": "^1.2",
+        "getkirby/composer-installer": "^1.0",
         "scssphp/scssphp": "^1.12"
     },
     "autoload": {
@@ -21,9 +28,6 @@
         }
     },
     "extra": {
-        "kirby-plugin-name": "scssizer"
-    },
-    "config": {
-        "sort-packages": true
+        "installer-name": "kirby-scssizer"
     }
 }
