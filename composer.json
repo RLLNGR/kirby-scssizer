@@ -1,6 +1,5 @@
 {
     "name": "rllngr/kirby-scssizer",
-    "version": "1.0.2",
     "description": "Kirby plugin — SCSS compiler powered by scssphp, no Node.js or Ruby required",
     "keywords": ["kirby", "kirby-plugin", "scss", "sass", "css", "compiler"],
     "type": "kirby-plugin",
