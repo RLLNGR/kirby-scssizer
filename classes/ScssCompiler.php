@@ -14,12 +14,31 @@ use ScssPhp\ScssPhp\OutputStyle;
 class ScssCompiler
 {
     /**
+     * Option namespace exposed by this plugin.
+     *
+     * Must match the identifier passed to Kirby::plugin() in index.php: the
+     * plugin was long registered as `rllngr/kirby-scssizerizer` while this
+     * class read `rllngr.kirby-scssizer.*`, so every default declared by the
+     * plugin silently resolved to nothing. Reading options through option()
+     * below keeps that key in exactly one place.
+     */
+    protected const OPTIONS = 'rllngr.kirby-scssizer';
+
+    /**
+     * Read a plugin option.
+     */
+    protected static function option(string $key, mixed $default = null): mixed
+    {
+        return Kirby::instance()->option(static::OPTIONS . '.' . $key, $default);
+    }
+
+    /**
      * Compile all SCSS files defined in the plugin configuration.
      */
     public static function compileAll(): void
     {
         $kirby = Kirby::instance();
-        $files = $kirby->option('rllngr.kirby-scssizer.files', []);
+        $files = static::option('files', []);
 
         if (empty($files)) {
             return;
@@ -47,7 +66,7 @@ class ScssCompiler
             return false;
         }
 
-        $autoCompile = $kirby->option('rllngr.kirby-scssizer.autoCompile') ?? $kirby->option('debug', false);
+        $autoCompile = static::option('autoCompile') ?? $kirby->option('debug', false);
 
         // In non-auto mode, only compile if the output file does not yet exist
         if (!$autoCompile && file_exists($outputAbsolute)) {
@@ -83,7 +102,7 @@ class ScssCompiler
     public static function cssTag(Page $page): string
     {
         $kirby    = Kirby::instance();
-        $config   = $kirby->option('rllngr.kirby-scssizer.templates', []);
+        $config   = static::option('templates', []);
         $scssDir  = $config['scssDir'] ?? 'assets/scss';
         $cssDir   = $config['cssDir']  ?? 'assets/css';
         $default  = $config['default'] ?? 'default';
@@ -115,7 +134,7 @@ class ScssCompiler
         $compiler = new Compiler();
 
         // Output style: honour explicit config, otherwise follow Kirby debug flag
-        $outputStyle = $kirby->option('rllngr.kirby-scssizer.outputStyle') ?? match ($kirby->option('debug', false)) {
+        $outputStyle = static::option('outputStyle') ?? match ($kirby->option('debug', false)) {
             true  => OutputStyle::EXPANDED,
             false => OutputStyle::COMPRESSED,
         };
@@ -124,12 +143,12 @@ class ScssCompiler
         // Import paths: source directory first, then any user-supplied extras
         $importPaths = [
             dirname($sourceAbsolute),
-            ...$kirby->option('rllngr.kirby-scssizer.importPaths', []),
+            ...static::option('importPaths', []),
         ];
         $compiler->setImportPaths($importPaths);
 
         // Inject SCSS variables from config
-        $variables = $kirby->option('rllngr.kirby-scssizer.variables', []);
+        $variables = static::option('variables', []);
         if (!empty($variables)) {
             $compiler->replaceVariables($variables);
         }

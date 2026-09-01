@@ -7,7 +7,10 @@ use Rllngr\SCSSizer\ScssCompiler;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 
-Kirby::plugin('rllngr/kirby-scssizerizer', [
+// NOTE: this identifier decides the option namespace Kirby exposes
+// (`rllngr.kirby-scssizer.*`). It must stay in sync with
+// ScssCompiler::OPTIONS — see the note there.
+Kirby::plugin('rllngr/kirby-scssizer', [
 
     /**
      * Default option values.
