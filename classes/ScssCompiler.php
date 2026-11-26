@@ -138,6 +138,10 @@ class ScssCompiler
             true  => OutputStyle::EXPANDED,
             false => OutputStyle::COMPRESSED,
         };
+        // 'expanded' / 'compressed' from config.php: scssphp 2 only takes the enum
+        if (is_string($outputStyle)) {
+            $outputStyle = OutputStyle::from(strtolower($outputStyle));
+        }
         $compiler->setOutputStyle($outputStyle);
 
         // Import paths: source directory first, then any user-supplied extras
