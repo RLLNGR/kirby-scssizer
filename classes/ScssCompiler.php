@@ -154,7 +154,7 @@ class ScssCompiler
         // Inject SCSS variables from config
         $variables = static::option('variables', []);
         if (!empty($variables)) {
-            $compiler->replaceVariables($variables);
+            $compiler->replaceVariables(static::parseVariables($variables));
         }
 
         return $compiler;
@@ -210,5 +210,25 @@ class ScssCompiler
         }
 
         return array_filter(explode("\n", file_get_contents($cacheFile)));
+    }
+
+    /**
+     * scssphp 2 only accepts parsed values: a raw string throws
+     * "Passing raw values ... use ValueConverter::parseValue".
+     * 1.x accepts both, so values are parsed whenever the converter exists.
+     */
+    protected static function parseVariables(array $variables): array
+    {
+        if (!class_exists(\ScssPhp\ScssPhp\ValueConverter::class)) {
+            return $variables;
+        }
+
+        $parsed = [];
+        foreach ($variables as $name => $value) {
+            $parsed[$name] = is_object($value)
+                ? $value
+                : \ScssPhp\ScssPhp\ValueConverter::parseValue((string) $value);
+        }
+        return $parsed;
     }
 }
